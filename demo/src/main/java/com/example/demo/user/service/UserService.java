@@ -21,8 +21,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserService {
 
+    private final CertificationService certificationService;
     private final UserRepository userRepository;
-    private final JavaMailSender mailSender;
 
     public UserEntity getByEmail(String email) {
         return userRepository.findByEmailAndStatus(email, UserStatus.ACTIVE)
@@ -35,18 +35,16 @@ public class UserService {
     }
 
     @Transactional
-    public UserEntity create(UserCreate userCreateDto) {
+    public UserEntity create(UserCreate userCreate) {
         UserEntity userEntity = new UserEntity();
-        userEntity.setEmail(userCreateDto.getEmail());
-        userEntity.setNickname(userCreateDto.getNickname());
-        userEntity.setAddress(userCreateDto.getAddress());
+        userEntity.setEmail(userCreate.getEmail());
+        userEntity.setNickname(userCreate.getNickname());
+        userEntity.setAddress(userCreate.getAddress());
         userEntity.setStatus(UserStatus.PENDING);
         userEntity.setCertificationCode(UUID.randomUUID().toString());
-
         userEntity = userRepository.save(userEntity);
 
-        String certificationUrl = generateCertificationUrl(userEntity);
-        sendCertificationEmail(userCreateDto.getEmail(), certificationUrl);
+        certificationService.send(userCreate.getEmail(), userEntity.getId(), userEntity.getCertificationCode());
 
         return userEntity;
     }
@@ -76,19 +74,6 @@ public class UserService {
         }
 
         userEntity.setStatus(UserStatus.ACTIVE);
-    }
-
-    private void sendCertificationEmail(String email, String certificationUrl) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(email);
-        message.setSubject("Please certify your email address");
-        message.setText("Please click the following link to certify your email address: " + certificationUrl);
-
-        mailSender.send(message);
-    }
-
-    private String generateCertificationUrl(UserEntity userEntity) {
-        return "http://localhost:8000/api/users/" + userEntity.getId() + "/verify?certificationCode=" + userEntity.getCertificationCode();
     }
 
 }
