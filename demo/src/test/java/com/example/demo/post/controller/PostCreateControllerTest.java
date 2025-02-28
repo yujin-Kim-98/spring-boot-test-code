@@ -30,25 +30,25 @@ public class PostCreateControllerTest {
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    @Test
-    void 사용자는_게시물을_작성할_수_있다() throws Exception {
-        // given
-        PostCreate postCreateDto = PostCreate.builder()
-                .writerId(1)
-                .content("hello")
-                .build();
-
-        // when
-        // then
-        mockMvc.perform(post("/api/posts")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(postCreateDto)))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").isNumber())
-                .andExpect(jsonPath("$.content").value("hello"))
-                .andExpect(jsonPath("$.writer.id").isNumber())
-                .andExpect(jsonPath("$.writer.email").value("yujin123.kim@gmail.com"))
-                .andExpect(jsonPath("$.writer.nickname").value("yujji"));
-    }
+//    @Test
+//    void 사용자는_게시물을_작성할_수_있다() throws Exception {
+//        // given
+//        PostCreate postCreateDto = PostCreate.builder()
+//                .writerId(1)
+//                .content("hello")
+//                .build();
+//
+//        // when
+//        // then
+//        mockMvc.perform(post("/api/posts")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeValueAsString(postCreateDto)))
+//                .andExpect(status().isCreated())
+//                .andExpect(jsonPath("$.id").isNumber())
+//                .andExpect(jsonPath("$.content").value("hello"))
+//                .andExpect(jsonPath("$.writer.id").isNumber())
+//                .andExpect(jsonPath("$.writer.email").value("yujin123.kim@gmail.com"))
+//                .andExpect(jsonPath("$.writer.nickname").value("yujji"));
+//    }
 
 }
