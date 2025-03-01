@@ -39,7 +39,7 @@ public class UserCreateControllerTest {
     @Test
     void 사용자는_회원_가입을_할_수_있고_회원가입된_사용자는_PENDING_상태이다() throws Exception {
         // given
-        UserCreate userCreateDto = UserCreate.builder()
+        UserCreate userCreate = UserCreate.builder()
                 .email("yujin123.kim@gmail.com")
                 .nickname("yujji")
                 .address("Seoul")
@@ -53,7 +53,7 @@ public class UserCreateControllerTest {
         // then
         mockMvc.perform(post("/api/users")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(userCreateDto)))
+                .content(objectMapper.writeValueAsString(userCreate)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.email").value("yujin123.kim@gmail.com"))

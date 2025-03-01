@@ -4,7 +4,6 @@ import com.example.demo.user.domain.User;
 import com.example.demo.user.domain.UserStatus;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @Builder
@@ -17,7 +16,7 @@ public class MyProfileResponse {
     private UserStatus status;
     private Long lastLoginAt;
 
-    public static MyProfileResponse from(User user) {
+    public static MyProfileResponse toMyProfileResponse(User user) {
         return MyProfileResponse.builder()
                 .id(user.getId())
                 .email(user.getEmail())

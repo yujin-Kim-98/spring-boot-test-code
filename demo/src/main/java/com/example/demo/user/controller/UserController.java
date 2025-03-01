@@ -29,7 +29,7 @@ public class UserController {
     public ResponseEntity<UserResponse> getUserById(@PathVariable long id) {
         return ResponseEntity
                 .ok()
-                .body(UserResponse.from(userService.getById(id)));
+                .body(UserResponse.toUserResponse(userService.getById(id)));
     }
 
     @GetMapping("/{id}/verify")
@@ -53,7 +53,7 @@ public class UserController {
         userService.login(user.getId());
         return ResponseEntity
                 .ok()
-                .body(MyProfileResponse.from(user));
+                .body(MyProfileResponse.toMyProfileResponse(user));
     }
 
     @PutMapping("/me")
@@ -67,7 +67,7 @@ public class UserController {
         user = userService.update(user.getId(), userUpdateDto);
         return ResponseEntity
                 .ok()
-                .body(MyProfileResponse.from(user));
+                .body(MyProfileResponse.toMyProfileResponse(user));
     }
 
 }

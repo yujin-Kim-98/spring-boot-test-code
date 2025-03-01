@@ -26,7 +26,7 @@ public class UserCreateController {
         User user = userService.create(userCreate);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(UserResponse.from(user));
+                .body(UserResponse.toUserResponse(user));
     }
 
 }

@@ -21,7 +21,7 @@ public class PostResponse {
                 .content(post.getContent())
                 .createdAt(post.getCreatedAt())
                 .modifiedAt(post.getModifiedAt())
-                .writer(UserResponse.from(post.getWriter()))
+                .writer(UserResponse.toUserResponse(post.getWriter()))
                 .build();
     }
 

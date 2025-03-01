@@ -16,7 +16,7 @@ public class UserResponse {
     private UserStatus status;
     private Long lastLoginAt;
 
-    public static UserResponse from(User user) {
+    public static UserResponse toUserResponse(User user) {
         return UserResponse.builder()
                 .id(user.getId())
                 .email(user.getEmail())
