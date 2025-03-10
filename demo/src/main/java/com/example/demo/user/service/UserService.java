@@ -11,6 +11,7 @@ import com.example.demo.user.domain.UserUpdate;
 import com.example.demo.user.infrastructure.UserEntity;
 import com.example.demo.user.infrastructure.UserJpaRepository;
 import com.example.demo.user.service.port.UserRepository;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -21,6 +22,7 @@ import java.time.Clock;
 import java.util.UUID;
 
 @Service
+@Builder
 @RequiredArgsConstructor
 public class UserService {
 
